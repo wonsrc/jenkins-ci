@@ -44,12 +44,7 @@ jib {
     from {
         image = 'amazoncorretto:11'
     }
-//    to {
-//        image = 'soongu/jib-spring'
-//        tags = ['1.0']
-//    }
     container {
-//        entrypoint = ['java', '-Dspring.profiles.active=default', '-jar', 'app-0.0.1-SNAPSHOT.jar']
 
         mainClass = 'com.study.App'
         jvmFlags = ['-Xms512m', '-Xmx512m', '-Xdebug', '-XshowSettings:vm', '-XX:+UnlockExperimentalVMOptions', '-XX:+UseContainerSupport']
