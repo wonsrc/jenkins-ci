@@ -1,4 +1,3 @@
-def mainDir="jenkins-ci"   // git clone시 생성되는 directory명 (github 원격저장소 이름)
 def ecrLoginHelper="docker-credential-ecr-login"
 def region="ap-northeast-2" // 서울 리전
 def ecrUrl="423458036718.dkr.ecr.ap-northeast-2.amazonaws.com"
@@ -17,7 +16,6 @@ pipeline {
         stage('Build Codes by Gradle') {
             steps {
                 sh """
-                cd ${mainDir}
                 ./gradlew clean build
                 """
             }
@@ -30,7 +28,6 @@ pipeline {
                         curl -O https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.4.0/linux-amd64/${ecrLoginHelper}
                         chmod +x ${ecrLoginHelper}
                         mv ${ecrLoginHelper} /usr/local/bin/
-                        cd ${mainDir}
                         ./gradlew jib -Djib.to.image=${ecrUrl}/${repository}:${currentBuild.number} -Djib.console='plain'
                     """
                 }
